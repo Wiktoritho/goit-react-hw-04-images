@@ -1,28 +1,33 @@
-import { Component } from 'react';
+import { useEffect } from 'react';
 import css from './Modal.module.css';
 
-export class Modal extends Component {
-  componentDidMount() {
-    window.addEventListener('keyup', this.handleClose);
-  }
-  componentWillUnmount() {
-    window.removeEventListener('keyup', this.handleClose);
-  }
-  handleClose = event => {
-    if (event.code === 'Escape') {
-      return this.props.hideModal();
+export const Modal = ({ hideModal, largeImg }) => {
+
+  const handleClose = event => {
+    if (event.target.tagName.toLowerCase() !== 'img') {
+      return hideModal();
     }
   };
 
-  render() {
-    const { hideModal, largeImg } = this.props;
+  useEffect(() => {
+    const handleListener = event => {
+      if (event.code === 'Escape') {
+      }
+      hideModal();
+    };
+    window.addEventListener('keyup', handleListener);
+
+    return () => {
+      window.removeEventListener('keyup', handleListener);
+    };
+  }, [hideModal]);
+
 
     return (
-      <div className={css.overlay} onClick={hideModal}>
+      <div className={css.overlay} onClick={handleClose}>
         <div className={css.modal}>
           <img src={largeImg} alt="" />
         </div>
       </div>
     );
-  }
 }

@@ -1,9 +1,8 @@
-import { Component } from 'react';
+import { React } from 'react';
 import { Circles } from 'react-loader-spinner';
 import css from './Loader.module.css';
 
-export class Loader extends Component {
-  render() {
+export const Loader = () => {
     return (
       <Circles
         height="250"
@@ -15,5 +14,4 @@ export class Loader extends Component {
         visible={true}
       />
     );
-  }
 }

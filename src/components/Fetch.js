@@ -16,15 +16,9 @@ export const fetchPhotosWithQuery = async (query, page) => {
       orientation: 'horizontal',
       per_page: PER_PAGE,
     },
-  })
-    .then(response => {
-      const { totalHits, hits } = response.data;
-      const photos = { totalHits, hits };
-      return photos;
-    })
-    .catch(error => {
+  }).catch(error => {
       console.log('rest api error', error);
     });
-  return response;
+  return response.data;
 };
 
